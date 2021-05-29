@@ -72,10 +72,7 @@ extension ServiceViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         let searchBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
-        let searchImage = UIImage(named: "search-icon")
-        
-        
-        searchBarButton.setImage(searchImage, for: .normal)
+        searchBarButton.setImage(UIImage(named: "search-icon"), for: .normal)
         searchBarButton.imageEdgeInsets = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         searchBarButton.tintColor = UIColor(red: 0.095, green: 0.11, blue: 0.121, alpha: 1)
         self.navigationItem.rightBarButtonItem =  UIBarButtonItem( customView: searchBarButton)
@@ -90,6 +87,10 @@ extension ServiceViewController {
         serviceTableView.register(ServiceTableViewCell.nib, forCellReuseIdentifier: ServiceTableViewCell.identifier)
         serviceTableView.separatorStyle = .none
     }
+    
+    func backButtonAction() {
+       self.navigationController?.popViewController(animated: true)
+     }
 }
 
 //MARK:

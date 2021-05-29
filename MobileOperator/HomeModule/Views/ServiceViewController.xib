@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceViewController" customModule="Uslugi" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceViewController" customModule="MobileOperator" customModuleProvider="target">
             <connections>
                 <outlet property="serviceSegmentedControl" destination="Nux-eV-LiI" id="DfI-Pb-1gU"/>
                 <outlet property="serviceTableView" destination="rtY-Fl-HLW" id="3aO-Ff-n6R"/>
@@ -46,7 +46,7 @@
                 <constraint firstItem="Nux-eV-LiI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="swk-oK-p9q"/>
                 <constraint firstItem="rtY-Fl-HLW" firstAttribute="top" secondItem="Nux-eV-LiI" secondAttribute="bottom" constant="10" id="vXK-Wh-E69"/>
             </constraints>
-            <point key="canvasLocation" x="24.637681159420293" y="128.57142857142856"/>
+            <point key="canvasLocation" x="-889" y="134"/>
         </view>
     </objects>
     <resources>
