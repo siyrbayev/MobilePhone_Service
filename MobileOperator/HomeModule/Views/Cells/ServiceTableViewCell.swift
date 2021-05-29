@@ -29,6 +29,14 @@ class ServiceTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configureLayout()
     }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            contentView.backgroundColor = .systemGray6
+        } else {
+            contentView.backgroundColor = .none
+        }
+    }
 }
 
 // MARK: Internal func
