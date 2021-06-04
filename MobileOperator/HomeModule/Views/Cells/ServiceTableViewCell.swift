@@ -11,16 +11,8 @@ class ServiceTableViewCell: UITableViewCell {
     static let identifier = "ServiceTableViewCell"
     static let nib = UINib(nibName: identifier, bundle: Bundle(for: ServiceTableViewCell.self))
     
-    public var service: ServiceDetails? {
-        didSet {
-            if let service = service {
-                nameLabel.text = service.name
-                iconImageview.image = UIImage(named: service.iconName ?? "")
-            }
-        }
-    }
+    private var service: ServiceDetails?
     
-    @IBOutlet weak var bottomLineView: UIView!
     @IBOutlet weak private var nameLabel: UILabel!
     @IBOutlet weak private var iconImageview: UIImageView!
     @IBOutlet weak private var arrowIconImageView: UIImageView!
@@ -29,6 +21,7 @@ class ServiceTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configureLayout()
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
@@ -39,12 +32,19 @@ class ServiceTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: Internal func
-extension ServiceTableViewCell {
+// MARK: Private func
+private extension ServiceTableViewCell {
     func configureLayout() {
         nameLabel.font = UIFont(name: "OpenSans-Regular", size: 15)
+    }
+}
+
+// MARK: Public func
+extension ServiceTableViewCell {
+    func setServiceDetails(with service: ServiceDetails) {
+        self.service = service
+        nameLabel.text = service.name
+        iconImageview.image = UIImage(named: service.iconName ?? "")
         
-        bottomLineView.layer.borderWidth = 0.5
-        bottomLineView.layer.borderColor = UIColor(red: 0.854, green: 0.867, blue: 0.88, alpha: 1).cgColor
     }
 }

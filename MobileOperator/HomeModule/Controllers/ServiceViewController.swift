@@ -8,11 +8,9 @@
 import UIKit
 
 class ServiceViewController: UIViewController {
-    static let identifier = "ServiceViewController"
-    static let nib = UINib(nibName: identifier, bundle: Bundle(for: ServiceViewController.self))
     
-    @IBOutlet weak var serviceSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var serviceTableView: UITableView!
+    @IBOutlet weak private var segmentedControl: UISegmentedControl!
+    @IBOutlet weak private var tableView: UITableView!
     
     private let services = [ServiceDetails](
         arrayLiteral:
@@ -24,7 +22,14 @@ class ServiceViewController: UIViewController {
         ServiceDetails(name: "SMS", iconName: "email-otlined-Icon"),
         ServiceDetails(name: "Полезное", iconName: "lightbulb-Icon")
     )
-    @IBAction func didChangeServiceSegment(_ sender: UISegmentedControl) {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureLayout()
+        configureTableView()
+    }
+    
+    @IBAction private func didChangeServiceSegment(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             hideMyServicesSegment()
@@ -36,22 +41,16 @@ class ServiceViewController: UIViewController {
             break
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureLayout()
-        configureServiceTableView()
-    }
 }
 
 // MARK: Internal func
 extension ServiceViewController {
     func showAllServicesSegment() {
-        serviceTableView.isHidden = false
+        tableView.isHidden = false
     }
     
     func hideAllServicesSegment() {
-        serviceTableView.isHidden = true
+        tableView.isHidden = true
     }
     
     func showMyServicesSegment() {
@@ -63,50 +62,61 @@ extension ServiceViewController {
     }
     
     func configureLayout() {
-        self.navigationItem.title = "Услуги"
-        let attributes = [NSAttributedString.Key.font: UIFont(name: "OpenSans-SemiBold", size: 14)]
-        self.navigationController?.navigationBar.titleTextAttributes = attributes as [NSAttributedString.Key : Any]
+        title = "Услуги"
+        configureNavigationBar()
+        configureSegmentedControl()
+        configureNavigationController()
+    }
     
-        self.navigationController?.navigationBar.barTintColor = .white
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+    func configureTableView() {
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ServiceTableViewCell.nib, forCellReuseIdentifier: ServiceTableViewCell.identifier)
+        
+    }
+    
+    func configureSegmentedControl() {
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "OpenSans-SemiBold", size: 13)!], for: .normal)
+    }
+    
+    func configureNavigationBar() {
         let searchBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 22, height: 22))
         searchBarButton.setImage(UIImage(named: "search-icon"), for: .normal)
         searchBarButton.imageEdgeInsets = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         searchBarButton.tintColor = UIColor(red: 0.095, green: 0.11, blue: 0.121, alpha: 1)
-        self.navigationItem.rightBarButtonItem =  UIBarButtonItem( customView: searchBarButton)
-        
-        serviceSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "OpenSans-SemiBold", size: 13)!], for: .normal)
+        navigationItem.rightBarButtonItem =  UIBarButtonItem( customView: searchBarButton)
     }
     
-    func configureServiceTableView() {
+    func configureNavigationController() {
         
-        serviceTableView.delegate = self
-        serviceTableView.dataSource = self
-        serviceTableView.register(ServiceTableViewCell.nib, forCellReuseIdentifier: ServiceTableViewCell.identifier)
-        serviceTableView.separatorStyle = .none
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "OpenSans-SemiBold", size: 14)!]
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
-    func backButtonAction() {
-       self.navigationController?.popViewController(animated: true)
-     }
 }
 
-//MARK:
-extension ServiceViewController: UITableViewDelegate, UITableViewDataSource {
-    
+//MARK: UITableViewDataSource
+extension ServiceViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return services.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = serviceTableView.dequeueReusableCell(withIdentifier: ServiceTableViewCell.identifier, for: indexPath) as! ServiceTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ServiceTableViewCell.identifier, for: indexPath) as! ServiceTableViewCell
         
-        cell.service = services[indexPath.row]
+        cell.setServiceDetails(with: services[indexPath.row])
         
         return cell
     }
-    
-    
+}
+
+
+//MARK: UITableViewDelegate
+extension ServiceViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selected cell with name: \(services[indexPath.row].name!)")
+    }
 }

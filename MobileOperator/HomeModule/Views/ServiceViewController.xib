@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceViewController" customModule="MobileOperator" customModuleProvider="target">
             <connections>
-                <outlet property="serviceSegmentedControl" destination="Nux-eV-LiI" id="DfI-Pb-1gU"/>
-                <outlet property="serviceTableView" destination="rtY-Fl-HLW" id="3aO-Ff-n6R"/>
+                <outlet property="segmentedControl" destination="Nux-eV-LiI" id="DfI-Pb-1gU"/>
+                <outlet property="tableView" destination="rtY-Fl-HLW" id="3aO-Ff-n6R"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,6 +33,7 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rtY-Fl-HLW">
                     <rect key="frame" x="0.0" y="51" width="375" height="616"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <inset key="separatorInset" minX="56" minY="0.0" maxX="11" maxY="0.0"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
